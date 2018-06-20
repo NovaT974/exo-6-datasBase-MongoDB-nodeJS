@@ -22,4 +22,25 @@ $(document).ready(function() {
             alert('ERROR ERROR');
         }
     });
+
+
+    $('#btn').click(function () {
+        var name = $("#nom").val();
+        var genre = $("#genre").val();
+        $.ajax({
+            type: 'POST',
+            data: {
+                name: name,
+                name: genre,
+            },
+            url: "http://localhost:6002/form",
+            success: function (name, genre) {
+                $('#nouveau-nom').append(name);
+                $('#nouveau-genre').append(genre);
+            },
+            error: function (e) {
+                console.log("erreur :", e);
+            }
+    });       
+});
 });
