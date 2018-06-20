@@ -12,20 +12,25 @@ server.get("/",function(req, res){
 });
 
 server.get("/data",function(req, res){
+    var results="";
     //res.sendFile(__dirname +"/");
     var MongoClient = require('mongodb').MongoClient;
     MongoClient.connect(urlmongo, function(err, db) {
 
         if (err) throw err;
         var dbo = db.db("Nova");
-        dbo.collection("clients").find({}).toArray(function (err, result) {
+        dbo.collection("personnages").find({}).toArray(function (err, result) {
             if (err) throw err;    
             console.log(result);
+            results=result; 
+            res.send(result);
+            db.close();
         })
     })
+   
 });
 
-
+/*
 var MongoClient = require('mongodb').MongoClient;
 MongoClient.connect(urlmongo, function(err, db) {
 
@@ -37,7 +42,7 @@ MongoClient.connect(urlmongo, function(err, db) {
         console.log("1 info inséré");
         db.close();
     });
-}); 
+}); */
 
 
 
@@ -71,4 +76,4 @@ MongoClient.connect(urlmongo, function(err, db) {
 //})
 
 
-server.listen(3002); 
+server.listen(6002); 

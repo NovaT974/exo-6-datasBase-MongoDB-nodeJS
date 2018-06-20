@@ -1,21 +1,25 @@
 $(document).ready(function() {
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:3002/data',
+        url: 'http://localhost:6002/data',
         success: function (affichInfo) {
-            
+            console.log(affichInfo)
             for (var i = 0; i < affichInfo.length; i++) {
                 console.log(affichInfo);
                    
+                // var info = "";
                 
-                $('#clients').append('<article><h2>' + name + '"</h2><p>'  + address + ' </p></article>');
-                
+                // // if(affichInfo.id === ''){
+                // //     info = name + address;
+                // // }
+               
+                $('#clients').append('<article><h2>Nom: ' + affichInfo[i].name + '</h2nodemon server.js><p>Genre: '  + affichInfo[i].genre + ' </p></article>'); 
             };
-            
+           
         },
         error: function (resultat, statut, erreur) {
 
-            alert('ERROR 404');
+            alert('ERROR ERROR');
         }
     });
 });
