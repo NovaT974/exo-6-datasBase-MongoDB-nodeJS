@@ -1,0 +1,23 @@
+{
+  "name": "exo-6-datasbase-mongodb-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NovaT974/exo-6-datasBase-MongoDB-nodeJS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NovaT974/exo-6-datasBase-MongoDB-nodeJS/issues"
+  },
+  "homepage": "https://github.com/NovaT974/exo-6-datasBase-MongoDB-nodeJS#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
