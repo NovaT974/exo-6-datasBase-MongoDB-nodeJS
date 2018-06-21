@@ -31,35 +31,44 @@ server.get("/data",function(req, res){
             res.send(result);
             db.close();
         })
+        
     })   
 });
 
 
-server.post('/form', function (req, res) {
+server.post('/data', function (req, res) {
     var MongoClient = require('mongodb').MongoClient;
     var name = req.body.name;
     var genre = req.body.genre;
-    var dbo = db.db("Nova");
-    MongoClient.then(urlmongo, function(err, db) {
+    MongoClient.connect(urlmongo, function(err, db) {
         //delete req.body._id;
-        dbo.collection('forms').insertOne({name, genre}, function(err, res){
-            if (err) throw err;    
-            res.send(''+ name + ''+ genre);
+        // dbo.collection('personnages').insertOne({name, genre}, function(err, res){
+        //     if (err) throw err;    
+        //     res.send(''+ name + ''+ genre);
+        //     db.close();
+        // });
+        
+    var dbo = db.db("Nova");
+        var info = name + genre;
+        dbo.collection('personnages').insertOne({name, genre}, function(err, res){
+            if (err) throw err; 
+            return info;   
+            res.send(info);
             db.close();
         });
     });    
 });
-
-server.get('/formulaire',  function(req, res) {
+/*
+server.get('/data',  function(req, res) {
     var MongoClient = require('mongodb').MongoClient;
     var dbo = db.db("Nova");
     MongoClient.then(urlmongo,function(err, db) {
-        dbo.collection('forms').find({}).toArray().then(function(forms) {
+        dbo.collection('personnages').find({}).toArray().then(function(forms) {
             res.status(200).json(forms);
         });
     });
 });
-
+*/
 
 // var MongoClient = require('mongodb').MongoClient;
 // MongoClient.connect(urlmongo, function(err, db) {

@@ -7,13 +7,13 @@ $(document).ready(function() {
             for (var i = 0; i < affichInfo.length; i++) {
                 console.log(affichInfo);
                    
-                // var info = "";
+                var info = "";
                 
-                // // if(affichInfo.id === ''){
-                // //     info = name + address;
-                // // }
+                // if(affichInfo.id === ''){
+                //     info = name + address;
+                // }
                
-                $('#clients').append('<article><h2>Nom: ' + affichInfo[i].name + '</h2nodemon server.js><p>Genre: '  + affichInfo[i].genre + ' </p></article>'); 
+                $('#clients').append('<article><h3>Nom: ' + affichInfo[i].name + '</h3><p>Genre: '  + affichInfo[i].genre + ' </p></article>'); 
             };
            
         },
@@ -25,18 +25,19 @@ $(document).ready(function() {
 
 
     $('#btn').click(function () {
-        var name = $("#nom").val();
-        var genre = $("#genre").val();
+         var name = $("#nom").val();
+         var genre = $("#genre").val();
         $.ajax({
             type: 'POST',
             data: {
                 name: name,
-                name: genre,
+                genre: genre
             },
-            url: "http://localhost:6002/form",
-            success: function (name, genre) {
-                $('#nouveau-nom').append(name);
-                $('#nouveau-genre').append(genre);
+            url: 'http://localhost:6002/data',
+            success: function (info) {
+                var name = $("#nom").val(" ");
+                var genre = $("#genre").val(" ");
+                $('#clients').append('<article><h3>Nom: ' + info[i].name + '</h3><p>Genre: '  + info[i].genre + ' </p></article>'); 
             },
             error: function (e) {
                 console.log("erreur :", e);
