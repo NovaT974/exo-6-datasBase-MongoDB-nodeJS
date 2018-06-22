@@ -10,6 +10,8 @@ server.use(bodyParser.urlencoded({ extended: false }));
 
 server.use(express.static("static"));
 
+ObjectId = require('mongodb').ObjectID;
+
 //affiche le html
 server.get("/",function(req, res){
     res.sendFile(__dirname +"/index.html");
@@ -35,20 +37,20 @@ server.get("/data",function(req, res){
     })   
 });
 
-
-server.post('/data', function (req, res) {
+//TODO : changer l'appel sur le front
+server.post('/insert', function (req, res) {
     var MongoClient = require('mongodb').MongoClient;
     var name = req.body.name;
     var genre = req.body.genre;
     MongoClient.connect(urlmongo, function(err, db) {
-        //delete req.body._id;
+        delete req.body._id;
         // dbo.collection('personnages').insertOne({name, genre}, function(err, res){
         //     if (err) throw err;    
         //     res.send(''+ name + ''+ genre);
         //     db.close();
         // });
-        
-    var dbo = db.db("Nova");
+
+        var dbo = db.db("Nova");
         var info = name + genre;
         dbo.collection('personnages').insertOne({name, genre}, function(err, res){
             if (err) throw err; 
@@ -58,6 +60,46 @@ server.post('/data', function (req, res) {
         });
     });    
 });
+
+//TODO : faire fonctionner
+server.post('/update', function (req, res) {
+    var MongoClient = require('mongodb').MongoClient;
+    var name = req.body.name;
+    var genre = req.body.genre;
+    MongoClient.connect(urlmongo, function(err, db) {
+        delete req.body._id;
+        var dbo = db.db("Nova");
+        var newinfo = name + genre;
+        dbo.collection('personnages').updateOne({newinfo}, function(err, res){
+            if (err) throw err; 
+            return info;   
+            res.send(info);
+            db.close();
+        }); 
+    });    
+});
+//supprimer les entrée
+server.get('/supprimer/:id', function (req, res) {
+    var MongoClient = require('mongodb').MongoClient;
+    var mon_id = req.params.id;
+    MongoClient.connect(urlmongo, function(err, db) {
+        delete req.body._id;//
+        var dbo = db.db("Nova");
+
+        dbo.collection('personnages').deleteOne({_id: ObjectId(mon_id)}, function(err, reponse){
+            //if (err) throw err; 
+            if (err){
+                res.send("error");
+            }else{
+                res.send("ok");
+            }
+            db.close();
+        });    
+    });  
+});
+
+
+
 /*
 server.get('/data',  function(req, res) {
     var MongoClient = require('mongodb').MongoClient;
@@ -113,4 +155,4 @@ server.get('/data',  function(req, res) {
 //})
 
 
-server.listen(6002); 
+server.listen(3002); 
